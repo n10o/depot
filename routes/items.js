@@ -27,16 +27,20 @@ router.get('/:kw?', function(req, res) {
       var items = results.ItemSearchResponse.Items[0];
       var item = items.Item;
       var output = [];
+      if(typeof item === "undefined"){
+        res.send("No value"); // TODO
+        return;
+      }
       for(var i = 0; i < item.length; i++){
         var detail = {};
         detail["ASIN"] = item[i].ASIN[0];
         detail["URL"] = item[i].DetailPageURL[0];
         detail["ImageURL"] = item[i].MediumImage[0].URL[0];
 
-	      var attr = item[i].ItemAttributes;
-	      for(var j = 0; j < attr.length; j++){
-          detail["Title"] = attr[0].Title[0];
-	      }
+        var attr = item[i].ItemAttributes;
+        for(var j = 0; j < attr.length; j++){
+           detail["Title"] = attr[0].Title[0];
+         }
         output.push(detail);
       }
       var top = {};

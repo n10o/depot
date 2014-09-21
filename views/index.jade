@@ -1,5 +1,25 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  div.container(ng-controller="depCon")
+    h1= title
+
+    div.search
+      form.form-inline
+        input.form-control(type="text" ng-model="item" placeholder="Search item name" required)
+        button.btn.btn-primary(ng-click="searchItems(item)") Search
+    div(ng-show="showLoading")
+      p Now Loading...
+    div.contents(ng-hide="showLoading")
+      table.table.table-condensed(ng-hide="!contents")
+        thead
+          tr
+            th Title
+            th ASIN
+        tbody
+          tr(ng-repeat="content in contents")
+            td {{content.Title}}
+            td {{content.ASIN}}
+    div.property
+      h3 My Properties
+      p hoge
