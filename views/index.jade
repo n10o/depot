@@ -17,9 +17,17 @@ block content
             th Title
             th ASIN
         tbody
-          tr(ng-repeat="content in contents")
+          tr(ng-repeat="content in contents" ng-class="{hopin: hover}" ng-mouseenter="hover = true" ng-mouseleave="hover = false" ng-click="clickItem(content)")
             td {{content.Title}}
             td {{content.ASIN}}
-    div.property
+    div.property(ng-hide="!props.length")
       h3 My Properties
-      p hoge
+      table.table.table-condensed
+        thead
+          tr
+            th Title
+            th ASIN
+        tbody
+          tr(ng-repeat="prop in props" ng-class="{hopin: hover}" ng-mouseenter="hover = true" ng-mouseleave="hover = false" ng-click="clickRow(content)")
+            td {{prop.title}}
+            td {{prop.asin}}

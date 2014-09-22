@@ -13,4 +13,20 @@ app.controller('depCon', function($scope, $http){
       console.log("ERROR:" + result)
     });
   }
+
+  $scope.getProps = function(id){
+    $http.get('prop/').success(function(result){
+      $scope.props = result;
+    });
+  }
+
+  $scope.clickItem = function(content){
+    $http.post('prop/', content).success(function(result){
+      console.log("post succeed");
+      $scope.getProps();
+    });
+  }
+
+  $scope.getProps();
+
 });
