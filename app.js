@@ -4,10 +4,22 @@ var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var passport = require('passport');
+var expressSession = require('express-session');
+var mongoose = require('mongoose');
+
+mongoose.connect('mongodb://localhost/depot');
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function callback () {
+  console.log("Connected to depot database");
+});
 
 var routes = require('./routes/index');
 var items = require('./routes/items');
 var prop = require('./routes/prop');
+var auth = require('./routes/auth');
+var user = require('./routes/user');
 
 var app = express();
 
@@ -20,13 +32,20 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
+app.use(expressSession({secret: 'hogehoge'}));
 app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'bower_components')));
 
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use('/', routes);
 app.use('/items', items);
 app.use('/prop', prop);
+app.use('/auth', auth);
+app.use('/user', user);
+
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -58,6 +77,5 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
-
 
 module.exports = app;
