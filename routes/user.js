@@ -12,7 +12,17 @@ var UserSchema = new Schema({
 
 var User = mongoose.model('User', UserSchema);
 
-router.get('/:id?', function(req, res){
+// TODO this function set common
+var auth = function(req, res, next){
+  console.log(req);
+  if(!req.isAuthenticated()){
+    res.send(401);
+  }else{
+    next();
+  }
+}
+
+router.get('/:id?', auth, function(req, res){
   var id = req.params.id;
   if(!id){
     User.find(function(err, result){
@@ -40,5 +50,6 @@ router.post('/', function(req, res){
   user.save();
   res.send("SUCCESS POST user/");
 });
+
 
 module.exports = router;

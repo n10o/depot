@@ -1,4 +1,17 @@
-var app = angular.module('dep', []);
+var app = angular.module('dep', ['ui.router']);
+
+app.config(function($stateProvider, $urlRouterProvider) {
+  $urlRouterProvider.otherwise("/");
+  $stateProvider
+    .state('/', {
+      url: "/", 
+      template: "<h1>VIEWAAA</h1>"
+    })
+    .state('login',{
+      url: "/login",
+      templateUrl: '/login'
+    })
+});
 
 app.controller('depCon', function($scope, $http){
   $scope.showLoading = false
