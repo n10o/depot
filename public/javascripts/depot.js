@@ -13,7 +13,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
     })
 });
 
-app.controller('depCon', function($scope, $http){
+app.controller('depCon', function($scope, $http, $q, $timeout){
+//  $scope.user = user;
   $scope.showLoading = false
 
   $scope.searchItems = function(name){
@@ -40,6 +41,22 @@ app.controller('depCon', function($scope, $http){
     });
   }
 
-  $scope.getProps();
+  var checkLoggedin = function(){
+    var deferred = $q.defer();
+    $http.get('/auth/loggedin').success(function(user){
+      if(user != 0){
+        $scope.user = user;
+        console.log("LOGGEDIN");
+        $timeout(deferred.resolve, 0);
+      }else{
+        console.log("NOT LOGIN");
+        $timeout(function(){
+          deferred.reject();
+        }, 0);
+      }
+    });
+    return deferred.promise;
+  };
+  checkLoggedin();
 
 });

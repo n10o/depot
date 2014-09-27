@@ -12,7 +12,7 @@ var PropSchema = new Schema({
 var Prop = mongoose.model('Prop', PropSchema);
 
 router.get('/', function(req, res){
-  console.log(req.session);
+  console.log("req.session:", req.session);
   console.log("GET / SUCCEED");
   Prop.find(function(err, result){
     res.json(result);

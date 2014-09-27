@@ -13,9 +13,7 @@ passport.use(new FacebookStrategy({
     if(!profile){
       console.log("Fail FB login");
     }
-    console.log("Success FB login:", + profile);
-    console.log("Success FB login:", + accessToken);
-    console.log("Success FB login:", + refreshToken);
+    console.log("Success FB login");
     // TODO?
     process.nextTick(function(){
       return done(null, profile); 
@@ -36,8 +34,13 @@ router.get('/facebook', passport.authenticate('facebook'));
 router.get('/facebook/callback', passport.authenticate('facebook', {successRedirect: '/',
           failureRedirect: '/fail'}));
 
-router.get('/logout/', function(req, res){
+router.get('/loggedin', function(req, res){
+  res.send(req.isAuthenticated() ? req.user : '0');
+});
+
+router.get('/logout', function(req, res){
   req.logout();
+  res.send(200);
 });
 
 module.exports = router;
