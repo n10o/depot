@@ -5,27 +5,34 @@ var Schema = mongoose.Schema;
 var config = require('../config');
 
 var PropSchema = new Schema({
+  ownerId: String,
   title: String,
   asin: String,
   date: {type: Date, default: Date.now}
 });
 var Prop = mongoose.model('Prop', PropSchema);
 
-router.get('/', function(req, res){
-  console.log("req.session:", req.session);
-  console.log("GET / SUCCEED");
-  Prop.find(function(err, result){
+// router.get('/', function(req, res){
+//   Prop.find(function(err, result){
+//     res.json(result);
+//   });
+// });
+
+router.get('/:ownerId?', function(req, res){
+  var ownerId = req.params.ownerId;
+  Prop.find({ownerId: ownerId}, function(err, result){
     res.json(result);
   });
 });
 
 router.post('/', function(req, res){
-  console.log("POST / SUCCEED");
+  ownerId = req.session.passport.user.id;
   asin = req.body.ASIN;
   title = req.body.Title;
   image = req.body.imageURL;
   url = req.body.URL;
   var item = new Prop({
+    ownerId: ownerId,
     title: title,
     asin: asin
   });
@@ -33,9 +40,8 @@ router.post('/', function(req, res){
     if (err){
       console.log("ERROR save");
     }
-    console.log(title + " saved");
   });
-  res.send("SUCCESS SAVE");
+  res.status(200).end();
 });
 
 module.exports = router;

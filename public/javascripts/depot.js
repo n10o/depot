@@ -5,7 +5,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
     .state('/', {
       url: "/", 
-      template: "<h1>VIEWAAA</h1>"
+      template: "<h1>INDEX(partial)</h1>"
     })
     .state('login',{
       url: "/login",
@@ -15,13 +15,13 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
 app.controller('depCon', function($scope, $http, $q, $timeout){
 //  $scope.user = user;
-  $scope.showLoading = false
+  $scope.showLoading = false;
+  $scope.user = "";
 
   $scope.searchItems = function(name){
     $scope.showLoading = true
     $http.get('items/' + name).success(function(result){
-      console.log("http succeed")
-      $scope.contents = result.item
+      $scope.searchResult = result.item
       $scope.showLoading = false
     }).error(function(result){
       console.log("ERROR:" + result)
@@ -29,27 +29,44 @@ app.controller('depCon', function($scope, $http, $q, $timeout){
   }
 
   $scope.getProps = function(id){
-    $http.get('prop/').success(function(result){
-      $scope.props = result;
-    });
+    if($scope.user){
+      $http.get('prop/' + $scope.user.id).success(function(result){
+        $scope.props = result;
+      });
+    }
   }
 
   $scope.clickItem = function(content){
     $http.post('prop/', content).success(function(result){
-      console.log("post succeed");
       $scope.getProps();
+    });
+  }
+
+  // TODO CORS problem
+  $scope.facebookLogin = function(){
+    $http.get('auth/facebook').success(function(result){
+      console.log("FBSUCS");
+    });
+  }
+
+  $scope.logout = function(){
+    $http.get('auth/logout').success(function(result){
+      $scope.user = "";
+      $scope.searchResult = "";
     });
   }
 
   var checkLoggedin = function(){
     var deferred = $q.defer();
+    // TODO showloading
     $http.get('/auth/loggedin').success(function(user){
       if(user != 0){
         $scope.user = user;
-        console.log("LOGGEDIN");
+        // TODO what is this?
+        console.log("ENTER");
+        $scope.getProps();
         $timeout(deferred.resolve, 0);
       }else{
-        console.log("NOT LOGIN");
         $timeout(function(){
           deferred.reject();
         }, 0);
@@ -58,5 +75,4 @@ app.controller('depCon', function($scope, $http, $q, $timeout){
     return deferred.promise;
   };
   checkLoggedin();
-
 });

@@ -9,14 +9,17 @@ passport.use(new FacebookStrategy({
     clientSecret: config.clientSecret,
     callbackURL: "/auth/facebook/callback"
   }, function(accessToken, refreshToken, profile, done){
-    // TODO
     if(!profile){
       console.log("Fail FB login");
+      // TODO
     }
-    console.log("Success FB login");
-    // TODO?
     process.nextTick(function(){
-      return done(null, profile); 
+      // TODO
+//      User.findOrCreate({fid: fid} , function(err, user){
+//        if(err)
+//          return done(err);
+//      });
+      return done(null, profile);
     });
   }
 ));

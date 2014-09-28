@@ -4,23 +4,30 @@ block content
   div.container(ng-controller="depCon")
     h1= title
 
-    div.search
+    div(ng-hide="user")
+      a(href="/auth/facebook") Facebook でログイン
+    div(ng-show="user")
+      p Name: {{ user.displayName }}
+      a(ng-click="logout()" href="#") Logout
+
+    div.search(ng-show="user")
       form.form-inline
         input.form-control(type="text" ng-model="item" placeholder="Search item name" required)
         button.btn.btn-primary(ng-click="searchItems(item)") Search
     div(ng-show="showLoading")
       p Now Loading...
     div.contents(ng-hide="showLoading")
-      table.table.table-condensed(ng-hide="!contents")
+      table.table.table-condensed(ng-hide="!searchResult")
         thead
           tr
             th Title
             th ASIN
         tbody
-          tr(ng-repeat="content in contents" ng-class="{hopin: hover}" ng-mouseenter="hover = true" ng-mouseleave="hover = false" ng-click="clickItem(content)")
+          tr(ng-repeat="content in searchResult" ng-class="{hopin: hover}" ng-mouseenter="hover = true" ng-mouseleave="hover = false" ng-click="clickItem(content)")
             td {{content.Title}}
             td {{content.ASIN}}
-    div.property(ng-hide="!props.length")
+
+    div.property(ng-show="user")
       h3 My Properties
       table.table.table-condensed
         thead
@@ -31,9 +38,5 @@ block content
           tr(ng-repeat="prop in props" ng-class="{hopin: hover}" ng-mouseenter="hover = true" ng-mouseleave="hover = false" ng-click="clickRow(content)")
             td {{prop.title}}
             td {{prop.asin}}
-    div.auth
-      a(href="/auth/facebook") Facebook でログイン
-    div
-      p {{ user.displayName }}
     div.tmp
       <div ui-view></div>
