@@ -44,4 +44,18 @@ router.post('/', function(req, res){
   res.status(200).end();
 });
 
+router.delete('/:ownerId/:objectId', function(req, res){
+  ownerId = req.params.ownerId;
+  objectId = req.params.objectId;
+  console.log("PARAMS:" + ownerId);
+  console.log("PARAMS2:" + objectId);
+  Prop.findOneAndRemove({ _id: objectId}, function(err){
+    if(err){
+      console.log("DELETE FAILED", err);
+    }
+    console.log("DELETE SUCCESS");
+  });
+  res.status(200).end();
+});
+
 module.exports = router;

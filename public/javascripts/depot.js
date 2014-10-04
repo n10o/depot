@@ -1,4 +1,4 @@
-var app = angular.module('dep', ['ui.router']);
+var app = angular.module('dep', ['ui.router', 'ui.bootstrap']);
 
 app.config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise("/");
@@ -10,6 +10,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
     .state('login',{
       url: "/login",
       templateUrl: '/login'
+    })
+    .state('detail',{
+      url: "/item/:id",
+      templateUrl: '/item/:id'
     })
 });
 
@@ -42,6 +46,13 @@ app.controller('depCon', function($scope, $http, $q, $timeout){
     });
   }
 
+  $scope.deleteItem = function(itemID){
+    // TODO need AUTH(じゃないと直接api叩けば消せてしまう)
+    $http.delete('prop/' + $scope.user.id + '/' + itemID).success(function(result){
+      $scope.getProps();
+    });
+  };
+
   // TODO CORS problem
   $scope.facebookLogin = function(){
     $http.get('auth/facebook').success(function(result){
@@ -63,7 +74,6 @@ app.controller('depCon', function($scope, $http, $q, $timeout){
       if(user != 0){
         $scope.user = user;
         // TODO what is this?
-        console.log("ENTER");
         $scope.getProps();
         $timeout(deferred.resolve, 0);
       }else{

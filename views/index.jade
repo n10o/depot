@@ -16,6 +16,8 @@ block content
         button.btn.btn-primary(ng-click="searchItems(item)") Search
     div(ng-show="showLoading")
       p Now Loading...
+
+    // Search Result
     div.contents(ng-hide="showLoading")
       table.table.table-condensed(ng-hide="!searchResult")
         thead
@@ -27,16 +29,16 @@ block content
             td {{content.Title}}
             td {{content.ASIN}}
 
-    div.property(ng-show="user")
-      h3 My Properties
-      table.table.table-condensed
-        thead
-          tr
-            th Title
-            th ASIN
-        tbody
-          tr(ng-repeat="prop in props" ng-class="{hopin: hover}" ng-mouseenter="hover = true" ng-mouseleave="hover = false" ng-click="clickRow(content)")
-            td {{prop.title}}
-            td {{prop.asin}}
+    // Inventory
+    div.property(ng-show="user && props")
+      h3 Inventories
+      accordion(close-others="true")
+        accordion-group(ng-repeat="prop in props" is-open="status.open") {{ prop.asin }}
+          form
+            input(type="text" value="hoge")
+            input(type="submit" value="Save")
+          button.btn.btn-warning(ng-click="deleteItem(prop._id)") Delete
+          accordion-heading {{ prop.title }}
+            i.pull-right.glyphicon(ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}")
     div.tmp
-      <div ui-view></div>
+      div(ui-view)
