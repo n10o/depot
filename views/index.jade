@@ -34,11 +34,14 @@ block content
       h3 Inventories
       accordion(close-others="true")
         accordion-group(ng-repeat="prop in props" is-open="status.open") {{ prop.asin }}
+
           form
             input(type="text" value="hoge")
             input(type="submit" value="Save")
           button.btn.btn-warning(ng-click="deleteItem(prop._id)") Delete
-          accordion-heading {{ prop.title }}
+          accordion-heading
+            img(ng-src="{{ prop.imageURL }}" width=100 height=150 title="THIS is title")
+            p  {{ prop.title }}
             i.pull-right.glyphicon(ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}")
     div.tmp
       div(ui-view)

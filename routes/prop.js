@@ -8,15 +8,10 @@ var PropSchema = new Schema({
   ownerId: String,
   title: String,
   asin: String,
+  imageURL: String,
   date: {type: Date, default: Date.now}
 });
 var Prop = mongoose.model('Prop', PropSchema);
-
-// router.get('/', function(req, res){
-//   Prop.find(function(err, result){
-//     res.json(result);
-//   });
-// });
 
 router.get('/:ownerId?', function(req, res){
   var ownerId = req.params.ownerId;
@@ -29,12 +24,13 @@ router.post('/', function(req, res){
   ownerId = req.session.passport.user.id;
   asin = req.body.ASIN;
   title = req.body.Title;
-  image = req.body.imageURL;
+  imageURL = req.body.ImageURL;
   url = req.body.URL;
   var item = new Prop({
     ownerId: ownerId,
     title: title,
-    asin: asin
+    asin: asin,
+    imageURL: imageURL
   });
   item.save(function(err){
     if (err){
@@ -47,13 +43,10 @@ router.post('/', function(req, res){
 router.delete('/:ownerId/:objectId', function(req, res){
   ownerId = req.params.ownerId;
   objectId = req.params.objectId;
-  console.log("PARAMS:" + ownerId);
-  console.log("PARAMS2:" + objectId);
-  Prop.findOneAndRemove({ _id: objectId}, function(err){
+  Prop.findOneAndRemove({ _id: objectId, ownerId: ownerId}, function(err){
     if(err){
       console.log("DELETE FAILED", err);
     }
-    console.log("DELETE SUCCESS");
   });
   res.status(200).end();
 });
