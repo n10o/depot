@@ -8,13 +8,6 @@ div.loading(ng-show="showLoading")
   img(src="/images/loading.gif" height="30px")
 
 // Search Result
-div.contents(ng-hide="showLoading")
-  table.table.table-condensed(ng-hide="!searchResult")
-    thead
-      tr
-        th Title
-        th ASIN
-    tbody
-      tr(ng-repeat="content in searchResult" ng-class="{hopin: hover}" ng-mouseenter="hover = true" ng-mouseleave="hover = false" ng-click="clickItem(content)")
-        td {{content.Title}}
-        td {{content.ASIN}}
+div.prop(ng-hide="showLoading" ng-repeat="content in searchResult" is-open="status.open")
+  div.item-wrapper
+    img(ng-src="{{ content.ImageURL }}" width=100 height=150 ng-attr-title="{{ content.Title }}" ng-click="clickItem(content)")
