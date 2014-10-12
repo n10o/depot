@@ -1,9 +1,22 @@
 extends layout
 
 block content
-  div.container(ng-controller="depCon")
-    h1= title
+  nav.navbar.navbar-fixed-top
+    div.container
+      div.navbar-header
+        a.navbar-brand(href="#") depot.in
+      div.collapse.navbar-collapse(collapse="navbarCollapsed")
+        ul.nav.navbar-nav
+          li.active
+            a(href="#") 見る
+          li
+            a(href="#") 探す
+        form.navbar-form.navbar-right(placeholder="Search")
+          div.form-group
+            input.form-control(type="text" placeholder="Filter your item")
+          button.btn.btn-primary(type="submit") Submit
 
+  div.container(ng-controller="depCon")
     div(ng-hide="user")
       a(href="/auth/facebook") Facebook でログイン
     div(ng-show="user")
@@ -12,7 +25,7 @@ block content
 
     div.search(ng-show="user")
       form.form-inline
-        input.form-control(type="text" ng-model="item" placeholder="Search item name" required)
+        input.form-control(type="text" ng-model="item" placeholder="Search you want" required)
         button.btn.btn-primary(ng-click="searchItems(item)") Search
     div(ng-show="showLoading")
       p Now Loading...
@@ -40,7 +53,7 @@ block content
             input(type="submit" value="Save")
           button.btn.btn-warning(ng-click="deleteItem(prop._id)") Delete
           accordion-heading
-            img(ng-src="{{ prop.imageURL }}" width=100 height=150 title="THIS is title")
+            img(ng-src="{{ prop.imageURL }}" width=100 height=150 ng-attr-title="{{ prop.title }}")
             p  {{ prop.title }}
             i.pull-right.glyphicon(ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}")
     div.tmp

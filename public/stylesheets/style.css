@@ -1,9 +1,16 @@
 body {
+  padding-top: 100px;
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 a {
   color: #00b7ff;
+}
+nav {
+  background-color: #fff;
+}
+a.navbar-brand {
+  font-size: 25px;
 }
 .hopin {
   background-color: #dff0d8;
