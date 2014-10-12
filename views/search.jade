@@ -1,0 +1,20 @@
+h3 Search from Amazon
+
+div.search(ng-show="user")
+  form.form-inline
+    input.form-control(type="text" ng-model="item" placeholder="Search you want" required)
+    button.btn.btn-primary(ng-click="searchItems(item)") Search
+div.loading(ng-show="showLoading")
+  img(src="/images/loading.gif" height="30px")
+
+// Search Result
+div.contents(ng-hide="showLoading")
+  table.table.table-condensed(ng-hide="!searchResult")
+    thead
+      tr
+        th Title
+        th ASIN
+    tbody
+      tr(ng-repeat="content in searchResult" ng-class="{hopin: hover}" ng-mouseenter="hover = true" ng-mouseleave="hover = false" ng-click="clickItem(content)")
+        td {{content.Title}}
+        td {{content.ASIN}}

@@ -5,7 +5,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
     .state('/', {
       url: "/",
-      template: "<h1>INDEX(partial)</h1>"
+      templateUrl: "watch"
     })
     .state('login',{
       url: "/login",
@@ -15,6 +15,15 @@ app.config(function($stateProvider, $urlRouterProvider) {
       url: "/item/:id",
       templateUrl: '/item/:id'
     })
+    .state('watch', {
+      url: "/watch",
+      templateUrl: 'watch'
+    })
+    .state('search', {
+      url: "/search",
+      templateUrl: 'search'
+    }
+    )
 });
 
 app.controller('depCon', function($scope, $http, $q, $timeout){

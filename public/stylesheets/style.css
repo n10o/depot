@@ -24,6 +24,9 @@ a.navbar-brand {
 .container {
   max-width: 750px;
 }
-div.item-wrapper img {
+.item-wrapper img {
   border: 1px rgba(23,67,93,0.75) solid !important;
+}
+.loading {
+  padding: 10px;
 }

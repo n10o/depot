@@ -3,6 +3,7 @@ Under construction
 use express scaffold
 
 ```
+$ cat config.js
 var config = {}
 
 config.endPoint = 'xxx';

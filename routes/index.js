@@ -6,6 +6,14 @@ router.get('/', function(req, res) {
   res.render('index', { title: 'depot'});
 });
 
+router.get('/watch', function(req, res){
+  res.render('watch');
+});
+
+router.get('/search', function(req, res){
+  res.render('search');
+});
+
 router.get('/login', function(req, res) {
   res.render('login');
 });

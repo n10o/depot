@@ -1,0 +1,11 @@
+// Inventory
+div.property(ng-show="user && props")
+  h3 Inventory
+  div.prop(ng-repeat="prop in props" is-open="status.open")
+    div.item-wrapper
+      img(ng-src="{{ prop.imageURL }}" width=100 height=150 ng-attr-title="{{ prop.title }}")
+    // p  {{ prop.title }}
+    // form
+    //   input(type="text" value="hoge")
+    //   input(type="submit" value="Save")
+    // button.btn.btn-warning(ng-click="deleteItem(prop._id)") Delete
