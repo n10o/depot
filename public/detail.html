@@ -1,4 +1,9 @@
-<h1>detail</h1>
-{{ item.title }}
-{{ item.asin }}
-{{ item.imageURL }}
+<h3>Item detail page</h3>
+<div>
+  <a ui-sref="watch">Back</a>
+</div>
+<div>
+  <img ng-src=" {{ item.imageURL }}"></img>
+  <h3>{{ item.title }}</h3>
+  <h3>{{ item.asin }}</h3>
+</div>

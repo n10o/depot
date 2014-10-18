@@ -19,7 +19,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
       controller: function($stateParams, $scope, $http){
         var getItem = function(){
           $http.get('prop/item/' + $stateParams.id).success(function(result){
-            console.log(result);
             $scope.item = result[0];
           });
         }
