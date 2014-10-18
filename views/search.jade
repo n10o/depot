@@ -4,8 +4,9 @@ div.search(ng-show="user")
   form.form-inline
     input.form-control(type="text" ng-model="item" placeholder="Search you want" required)
     button.btn.btn-primary(ng-click="searchItems(item)") Search
+
 div.loading(ng-show="showLoading")
-  img(src="/images/loading.gif" height="30px")
+  img(src="/images/loading.gif" height="50px")
 
 // Search Result
 div.prop(ng-hide="showLoading" ng-repeat="content in searchResult" is-open="status.open")

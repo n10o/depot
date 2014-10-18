@@ -3,27 +3,24 @@ var app = angular.module('dep', ['ui.router', 'ui.bootstrap']);
 app.config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise("/");
   $stateProvider
-    .state('/', {
+    .state('watch', {
       url: "/",
       templateUrl: "watch"
     })
+    .state('detail', {
+      url: "/item/:id",
+      templateUrl: function($stateParams){
+        return 'item/' + $stateParams.id;
+      }
+    })
     .state('login',{
       url: "/login",
-      templateUrl: '/login'
-    })
-    .state('detail',{
-      url: "/item/:id",
-      templateUrl: '/item/:id'
-    })
-    .state('watch', {
-      url: "/watch",
-      templateUrl: 'watch'
+      templateUrl: 'login'
     })
     .state('search', {
       url: "/search",
       templateUrl: 'search'
-    }
-    )
+    })
 });
 
 app.controller('depCon', function($scope, $http, $q, $timeout){

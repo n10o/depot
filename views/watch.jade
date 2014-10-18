@@ -2,8 +2,8 @@
 div.property(ng-show="user && props")
   h3 Inventory
   div.prop(ng-repeat="prop in props" is-open="status.open")
-    div.item-wrapper
-      img(ng-src="{{ prop.imageURL }}" width=100 height=150 ng-attr-title="{{ prop.title }}")
+    div.item-wrapper(popover-placement="bottom" popover="{{ prop.title }}" popover-trigger="mouseenter")
+      img(ng-src="{{ prop.imageURL }}" width=100 height=150 ng-attr-title="{{ prop.title }}" ui-sref="detail({id: prop._id})")
     // p  {{ prop.title }}
     // form
     //   input(type="text" value="hoge")

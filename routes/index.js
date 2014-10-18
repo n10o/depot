@@ -18,11 +18,13 @@ router.get('/login', function(req, res) {
   res.render('login');
 });
 
+// TODO nodeからjadeを返す方式にしているが、直接angularからアクセスできないか
+//
 router.get('/item/:itemid', function(req, res) {
-//  var itemid = req.params.itemid;
+  var itemid = req.params.itemid;
 //  var itemid = req.itemid;
-//  console.log(itemid);
-  res.render('item');
+  console.log(itemid);
+  res.render('item', { itemid: itemid });
 });
 
 module.exports = router;
