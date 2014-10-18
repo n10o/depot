@@ -20,12 +20,20 @@ router.get('/:ownerId?', function(req, res){
   });
 });
 
+// TODO reconsider url naming
+router.get('/item/:objectId', function(req, res){
+  var objectId = req.params.objectId;
+  Prop.find({_id: objectId}, function(err, result){
+    res.json(result);
+  });
+});
+
 router.post('/', function(req, res){
-  ownerId = req.session.passport.user.id;
-  asin = req.body.ASIN;
-  title = req.body.Title;
-  imageURL = req.body.ImageURL;
-  url = req.body.URL;
+  var ownerId = req.session.passport.user.id;
+  var asin = req.body.ASIN;
+  var title = req.body.Title;
+  var imageURL = req.body.ImageURL;
+  var url = req.body.URL;
   var item = new Prop({
     ownerId: ownerId,
     title: title,
@@ -41,8 +49,8 @@ router.post('/', function(req, res){
 });
 
 router.delete('/:ownerId/:objectId', function(req, res){
-  ownerId = req.params.ownerId;
-  objectId = req.params.objectId;
+  var ownerId = req.params.ownerId;
+  var objectId = req.params.objectId;
   Prop.findOneAndRemove({ _id: objectId, ownerId: ownerId}, function(err){
     if(err){
       console.log("DELETE FAILED", err);

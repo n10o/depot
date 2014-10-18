@@ -7,10 +7,23 @@ app.config(function($stateProvider, $urlRouterProvider) {
       url: "/",
       templateUrl: "watch"
     })
+    // .state('detail', {
+    //   url: "/item/:id",
+    //   templateUrl: function($stateParams){
+    //     return 'item/' + $stateParams.id;
+    //   }
+    // })
     .state('detail', {
       url: "/item/:id",
-      templateUrl: function($stateParams){
-        return 'item/' + $stateParams.id;
+      templateUrl: "detail.html",
+      controller: function($stateParams, $scope, $http){
+        var getItem = function(){
+          $http.get('prop/item/' + $stateParams.id).success(function(result){
+            console.log(result);
+            $scope.item = result[0];
+          });
+        }
+        getItem();
       }
     })
     .state('login',{
