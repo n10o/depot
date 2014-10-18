@@ -35,7 +35,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
     })
 });
 
-app.controller('depCon', function($scope, $http, $q, $timeout){
+app.controller('depCon', function($scope, $http, $q, $timeout, $state){
 //  $scope.user = user;
   $scope.showLoading = false;
   $scope.user = "";
@@ -68,6 +68,7 @@ app.controller('depCon', function($scope, $http, $q, $timeout){
     // TODO need AUTH(じゃないと直接api叩けば消せてしまう)
     $http.delete('prop/' + $scope.user.id + '/' + itemID).success(function(result){
       $scope.getProps();
+      $state.go("watch");
     });
   };
 
