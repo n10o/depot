@@ -58,7 +58,7 @@ app.controller('depCon', function($scope, $http, $q, $timeout, $state){
     }
   }
 
-  $scope.clickItem = function(content){
+  $scope.registerItem = function(content){
     $http.post('prop/', content).success(function(result){
       $scope.getProps();
     });

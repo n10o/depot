@@ -11,4 +11,4 @@ div.loading(ng-show="showLoading")
 // Search Result
 div.prop(ng-hide="showLoading" ng-repeat="content in searchResult" is-open="status.open")
   div.item-wrapper
-    img(ng-src="{{ content.ImageURL }}" width=100 height=150 ng-attr-title="{{ content.Title }}" ng-click="clickItem(content)")
+    img(ng-src="{{ content.MediumImage }}" width=100 height=150 ng-attr-title="{{ content.Title }}" ng-click="registerItem(content)")

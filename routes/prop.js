@@ -7,8 +7,15 @@ var config = require('../config');
 var PropSchema = new Schema({
   ownerId: String,
   title: String,
+  author: String,
+  isbn: String,
+  publisher: String,
+  productGroup: String,
   asin: String,
-  imageURL: String,
+  detailPageURL: String,
+  smallImage: String,
+  mediumImage: String,
+  largeImage: String,
   date: {type: Date, default: Date.now}
 });
 var Prop = mongoose.model('Prop', PropSchema);
@@ -30,15 +37,28 @@ router.get('/item/:objectId', function(req, res){
 
 router.post('/', function(req, res){
   var ownerId = req.session.passport.user.id;
-  var asin = req.body.ASIN;
   var title = req.body.Title;
-  var imageURL = req.body.ImageURL;
-  var url = req.body.URL;
+  var author = req.body.Author;
+  var isbn = req.body.ISBN;
+  var publisher = req.body.Publisher;
+  var productGroup = req.body.ProductGroup;
+  var asin = req.body.ASIN;
+  var detailPageURL = req.body.DetailPageURL;
+  var smallImage = req.body.SmallImage;
+  var mediumImage = req.body.MediumImage;
+  var largeImage = req.body.LargeImage;
   var item = new Prop({
     ownerId: ownerId,
     title: title,
+    author: author,
+    isbn: isbn,
+    publisher: publisher,
+    productGroup: productGroup,
     asin: asin,
-    imageURL: imageURL
+    detailPageURL: detailPageURL,
+    smallImage: smallImage,
+    mediumImage: mediumImage,
+    largeImage: largeImage
   });
   item.save(function(err){
     if (err){

@@ -3,9 +3,13 @@
   <a ui-sref="watch">Back</a>
 </div>
 <div>
-  <img ng-src=" {{ item.imageURL }}"></img>
-  <h3>{{ item.title }}</h3>
-  <h3>{{ item.asin }}</h3>
+  <img ng-src=" {{ item.largeImage }}"></img>
+  <h3><a ng-href="{{ item.detailPageURL }}">{{ item.title }}</a></h3>
+  <p>{{ item.author }}</p>
+  <p>{{ item.publisher }}</p>
+  <p>ASIN: {{ item.asin }}</p>
+  <p>ISBN: {{ item.isbn }}</p>
+  <p>{{ item.productGroup }}</p>
 </div>
 
 <button class="btn btn-warning" ng-click="deleteItem(item._id)">Delete</button>
