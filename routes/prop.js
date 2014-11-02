@@ -53,6 +53,7 @@ router.post('/', function(req, res) {
     ownerId: ownerId,
     isbn: isbn
   }, function(err, result) {
+    // Prevent duplicate
     if (result.length == 0) {
       var title = req.body.Title;
       var author = req.body.Author;
@@ -83,7 +84,6 @@ router.post('/', function(req, res) {
       });
     }
   });
-
   res.status(200).end();
 });
 

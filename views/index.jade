@@ -25,4 +25,6 @@ block content
       span Name: {{ user.displayName }}
       a(ng-click="logout()" href="#")  Logout
 
+    alert(ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)") {{alert.msg}}
+
     div(ng-show="user" ui-view)

@@ -39,6 +39,7 @@ app.controller('depCon', function($scope, $http, $q, $timeout, $state){
 //  $scope.user = user;
   $scope.showLoading = false;
   $scope.user = "";
+  $scope.alerts = [];
 
   $scope.searchItems = function(name){
     $scope.showLoading = true
@@ -61,6 +62,7 @@ app.controller('depCon', function($scope, $http, $q, $timeout, $state){
   $scope.registerItem = function(content){
     $http.post('prop/', content).success(function(result){
       $scope.getProps();
+      addAlert('Success save item', 'success');
     });
   }
 
@@ -85,6 +87,15 @@ app.controller('depCon', function($scope, $http, $q, $timeout, $state){
       $scope.searchResult = "";
     });
   }
+
+  var addAlert = function(msg, type){
+    $scope.alerts.push({type: type, msg: msg});
+    $timeout(function(){$scope.closeAlert(0);}, 1000);
+  }
+  $scope.closeAlert = function(index){
+    $scope.alerts.splice(index, 1);
+  }
+
 
   var checkLoggedin = function(){
     var deferred = $q.defer();

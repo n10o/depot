@@ -33,3 +33,6 @@ a.navbar-brand {
 .search {
   padding-bottom: 10px;
 }
+.hoverImg {
+  opacity: 0.5;
+}
