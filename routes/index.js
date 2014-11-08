@@ -6,8 +6,8 @@ router.get('/', function(req, res) {
   res.render('index', { title: 'depot'});
 });
 
-router.get('/watch', function(req, res){
-  res.render('watch');
+router.get('/mypage', function(req, res){
+  res.render('mypage');
 });
 
 router.get('/search', function(req, res){

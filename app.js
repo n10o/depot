@@ -9,7 +9,7 @@ var expressSession = require('express-session');
 var mongoose = require('mongoose');
 
 process.on('uncaughtException', function(err) {
-      console.log(err);
+  console.log(err);
 });
 
 mongoose.connect('mongodb://localhost/depot');

@@ -3,9 +3,9 @@ var app = angular.module('dep', ['ui.router', 'ui.bootstrap', 'xeditable']);
 app.config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise("/");
   $stateProvider
-    .state('watch', {
+    .state('mypage', {
       url: "/",
-      templateUrl: "watch"
+      templateUrl: 'mypage'
     })
     .state('detail', {
       url: "/item/:id",
@@ -65,7 +65,7 @@ app.controller('depCon', function($scope, $http, $q, $timeout, $state){
     // TODO need AUTH(じゃないと直接api叩けば消せてしまう)
     $http.delete('prop/' + $scope.user.id + '/' + itemID).success(function(result){
       $scope.getProps();
-      $state.go("watch");
+      $state.go("mypage");
     });
   };
 
