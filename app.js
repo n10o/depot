@@ -8,6 +8,10 @@ var passport = require('passport');
 var expressSession = require('express-session');
 var mongoose = require('mongoose');
 
+process.on('uncaughtException', function(err) {
+      console.log(err);
+});
+
 mongoose.connect('mongodb://localhost/depot');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
