@@ -16,6 +16,10 @@ var PropSchema = new Schema({
   smallImage: String,
   mediumImage: String,
   largeImage: String,
+  memo: {
+    type: String,
+    default: ""
+  },
   date: {
     type: Date,
     default: Date.now
@@ -48,22 +52,22 @@ router.get('/item/:objectId', function(req, res) {
 
 router.post('/', function(req, res) {
   var ownerId = req.session.passport.user.id;
-  var isbn = req.body.ISBN;
+  var isbn = req.body.isbn;
   Prop.find({
     ownerId: ownerId,
     isbn: isbn
   }, function(err, result) {
     // Prevent duplicate
     if (result.length == 0) {
-      var title = req.body.Title;
-      var author = req.body.Author;
-      var publisher = req.body.Publisher;
-      var productGroup = req.body.ProductGroup;
-      var asin = req.body.ASIN;
-      var detailPageURL = req.body.DetailPageURL;
-      var smallImage = req.body.SmallImage;
-      var mediumImage = req.body.MediumImage;
-      var largeImage = req.body.LargeImage;
+      var title = req.body.title;
+      var author = req.body.author;
+      var publisher = req.body.publisher;
+      var productGroup = req.body.productGroup;
+      var asin = req.body.asin;
+      var detailPageURL = req.body.detailPageURL;
+      var smallImage = req.body.smallImage;
+      var mediumImage = req.body.mediumImage;
+      var largeImage = req.body.largeImage;
       var item = new Prop({
         ownerId: ownerId,
         title: title,
@@ -82,6 +86,19 @@ router.post('/', function(req, res) {
           console.log("ERROR save");
         }
       });
+    }else{
+      // TODO: BUG detail画面でメモを消した時に保存されない、単純に保存すると検索からduplicate登録した時にメモが消える
+      var memo = req.body.memo;
+      if(memo){
+        Prop.update({
+          ownerId: ownerId,
+          isbn: isbn
+        }, {$set:{"memo": memo}}, function(err, result){
+          if(err){
+            console.log("UPDATE ERROR:", err);
+          }
+        });
+      }
     }
   });
   res.status(200).end();

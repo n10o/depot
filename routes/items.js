@@ -34,19 +34,19 @@ router.get('/:kw?', function(req, res) {
       }
       for(var i = 0; i < item.length; i++){
         var detail = {};
-        detail["ASIN"] = item[i].ASIN[0];
-        detail["DetailPageURL"] = item[i].DetailPageURL[0];
-        detail["SmallImage"] = item[i].SmallImage[0].URL[0];
-        detail["MediumImage"] = item[i].MediumImage[0].URL[0];
-        detail["LargeImage"] = item[i].LargeImage[0].URL[0];
+        detail["asin"] = item[i].ASIN[0];
+        detail["detailPageURL"] = item[i].DetailPageURL[0];
+        detail["smallImage"] = item[i].SmallImage[0].URL[0];
+        detail["mediumImage"] = item[i].MediumImage[0].URL[0];
+        detail["largeImage"] = item[i].LargeImage[0].URL[0];
 
         var attr = item[i].ItemAttributes;
         for(var j = 0; j < attr.length; j++){
-           detail["Title"] = attr[0].Title[0];
-           detail["Author"] = attr[0].Author[0];
-           detail["ISBN"] = attr[0].ISBN[0];
-           detail["Publisher"] = attr[0].Publisher[0];
-           detail["ProductGroup"] = attr[0].ProductGroup[0];
+           detail["title"] = attr[0].Title[0];
+           detail["author"] = attr[0].Author[0];
+           detail["isbn"] = attr[0].ISBN[0];
+           detail["publisher"] = attr[0].Publisher[0];
+           detail["[roductGroup"] = attr[0].ProductGroup[0];
          }
         elem.push(detail);
       }

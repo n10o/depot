@@ -1,4 +1,4 @@
-var app = angular.module('dep', ['ui.router', 'ui.bootstrap']);
+var app = angular.module('dep', ['ui.router', 'ui.bootstrap', 'xeditable']);
 
 app.config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise("/");
@@ -7,12 +7,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
       url: "/",
       templateUrl: "watch"
     })
-    // .state('detail', {
-    //   url: "/item/:id",
-    //   templateUrl: function($stateParams){
-    //     return 'item/' + $stateParams.id;
-    //   }
-    // })
     .state('detail', {
       url: "/item/:id",
       templateUrl: "detail.html",
@@ -36,10 +30,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
 });
 
 app.controller('depCon', function($scope, $http, $q, $timeout, $state){
-//  $scope.user = user;
   $scope.showLoading = false;
   $scope.user = "";
   $scope.alerts = [];
+//  $scope.memo = "";
+  $scope.item = [];
 
   $scope.searchItems = function(name){
     $scope.showLoading = true
@@ -62,7 +57,7 @@ app.controller('depCon', function($scope, $http, $q, $timeout, $state){
   $scope.registerItem = function(content){
     $http.post('prop/', content).success(function(result){
       $scope.getProps();
-      addAlert('Success save item', 'success');
+      $scope.addAlert('Success save item', 'success');
     });
   }
 
@@ -73,6 +68,15 @@ app.controller('depCon', function($scope, $http, $q, $timeout, $state){
       $state.go("watch");
     });
   };
+
+  $scope.updateMemo = function(updateItem, memo){
+    updateItem["memo"] = memo;
+      $http.post('prop/', updateItem).success(function(result){
+        $scope.getProps();
+        $scope.addAlert('Success update item', 'success');
+      });
+  }
+
 
   // TODO CORS problem
   $scope.facebookLogin = function(){
@@ -88,14 +92,14 @@ app.controller('depCon', function($scope, $http, $q, $timeout, $state){
     });
   }
 
-  var addAlert = function(msg, type){
+  $scope.addAlert = function(msg, type){
     $scope.alerts.push({type: type, msg: msg});
-    $timeout(function(){$scope.closeAlert(0);}, 1000);
+    $timeout(function(){$scope.closeAlert(0);}, 2000);
   }
+
   $scope.closeAlert = function(index){
     $scope.alerts.splice(index, 1);
   }
-
 
   var checkLoggedin = function(){
     var deferred = $q.defer();

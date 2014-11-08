@@ -10,7 +10,7 @@ div.loading(ng-show="showLoading")
 
 // Search Result
 div.prop(ng-hide="showLoading" ng-repeat="content in searchResult" is-open="status.open")
-  div.item-wrapper(popover-placement="bottom" popover="{{ content.Title }}" popover-trigger="mouseenter")
-    img(ng-src="{{ content.MediumImage }}" width=100 height=150
-        ng-attr-title="{{ content.Title }}" ng-click="registerItem(content)"
+  div.item-wrapper(popover-placement="bottom" popover="{{ content.title }}" popover-trigger="mouseenter")
+    img(ng-src="{{ content.mediumImage }}" width=100 height=150
+        ng-attr-title="{{ content.title }}" ng-click="registerItem(content)"
         ng-class="{hoverImg: hover}" ng-mouseenter="hover = true" ng-mouseleave="hover = false")
