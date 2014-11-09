@@ -52,10 +52,10 @@ router.get('/item/:objectId', function(req, res) {
 
 router.post('/', function(req, res) {
   var ownerId = req.session.passport.user.id;
-  var isbn = req.body.isbn;
+  var asin = req.body.asin;
   Prop.find({
     ownerId: ownerId,
-    isbn: isbn
+    asin:asin 
   }, function(err, result) {
     // Prevent duplicate
     if (result.length == 0) {
@@ -63,7 +63,7 @@ router.post('/', function(req, res) {
       var author = req.body.author;
       var publisher = req.body.publisher;
       var productGroup = req.body.productGroup;
-      var asin = req.body.asin;
+      var isbn = req.body.isbn;
       var detailPageURL = req.body.detailPageURL;
       var smallImage = req.body.smallImage;
       var mediumImage = req.body.mediumImage;
@@ -92,7 +92,7 @@ router.post('/', function(req, res) {
       if(memo){
         Prop.update({
           ownerId: ownerId,
-          isbn: isbn
+          asin:asin 
         }, {$set:{"memo": memo}}, function(err, result){
           if(err){
             console.log("UPDATE ERROR:", err);

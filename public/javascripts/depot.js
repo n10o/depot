@@ -35,16 +35,30 @@ app.controller('depCon', function($scope, $http, $q, $timeout, $state){
   $scope.alerts = [];
 //  $scope.memo = "";
   $scope.item = [];
+  $scope.searchResult = [];
+  $scope.pageNum = 1;
 
-  $scope.searchItems = function(name){
-    $scope.showLoading = true
-    $http.get('items/' + name).success(function(result){
-      $scope.searchResult = result.item
-      $scope.showLoading = false
+  $scope.searchItems = function(name, isDel){
+    if(isDel == true){
+      $scope.pageNum = 1;
+    }
+    if($scope.pageNum == 1){
+      $scope.showLoading = true
+    }
+    $http.get('items/' + name + '/' + $scope.pageNum).success(function(result){
+      if(isDel == true){
+        $scope.searchResult = [result.item];
+      }else{
+        $scope.searchResult.push(result.item);
+      }
+      console.log($scope.searchResult);
+      $scope.pageNum++;
+      $scope.showLoading = false;
     }).error(function(result){
       console.log("ERROR:" + result)
     });
   }
+
 
   $scope.getProps = function(id){
     if($scope.user){

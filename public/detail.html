@@ -7,7 +7,7 @@
   <h3><a ng-href="{{ item.detailPageURL }}">{{ item.title }}</a></h3>
   <p>{{ item.author }}</p>
   <p>{{ item.publisher }}</p>
-  <p>ISBN: {{ item.isbn }}</p>
+  <p>ISBN: {{ item.asin }}</p>
   <p>{{ item.productGroup }}</p>
   <p>Memo: <a href="#" editable-text="memo" onaftersave="updateMemo(item, memo)">{{ item.memo || "無し" }}</a></p>
 </div>

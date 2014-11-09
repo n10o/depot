@@ -3,14 +3,17 @@ h3 Search from Amazon
 div.search(ng-show="user")
   form.form-inline
     input.form-control(type="text" ng-model="item" placeholder="Search you want" required)
-    button.btn.btn-primary(ng-click="searchItems(item)") Search
+    button.btn.btn-primary(ng-click="searchItems(item, true)") Search
 
 div.loading(ng-show="showLoading")
   img(src="/images/loading.gif" height="50px")
 
 // Search Result
-div.prop(ng-hide="showLoading" ng-repeat="content in searchResult" is-open="status.open")
-  div.item-wrapper(popover-placement="bottom" popover="{{ content.title }}" popover-trigger="mouseenter")
-    img(ng-src="{{ content.mediumImage }}" width=100 height=150
-        ng-attr-title="{{ content.title }}" ng-click="registerItem(content)"
-        ng-class="{hoverImg: hover}" ng-mouseenter="hover = true" ng-mouseleave="hover = false")
+div.prop(ng-hide="showLoading" ng-repeat="contents in searchResult" is-open="status.open")
+  div(ng-repeat="content in contents")
+    div.item-wrapper(popover-placement="bottom" popover="{{ content.title }}" popover-trigger="mouseenter")
+      img(ng-src="{{ content.mediumImage }}" width=100 height=150
+          ng-attr-title="{{ content.title }}" ng-click="registerItem(content)"
+          ng-class="{hoverImg: hover}" ng-mouseenter="hover = true" ng-mouseleave="hover = false")
+button.btn.btn-primary(ng-show="searchResult" ng-click="searchItems(item)") 次ページを読み込み
+
